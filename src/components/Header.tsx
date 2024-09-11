@@ -5,8 +5,12 @@ import Typography from "@mui/material/Typography";
 import Button from "@mui/material/Button";
 import IconButton from "@mui/material/IconButton";
 import MenuIcon from "@mui/icons-material/Menu";
+import React from "react";
 
-export default function Header() {
+interface Props {
+  children: React.ReactNode;
+}
+export default function Header({ children }: Props) {
   return (
     <Box sx={{ flexGrow: 1 }}>
       <AppBar position="static">
@@ -23,6 +27,7 @@ export default function Header() {
           <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
             News
           </Typography>
+          {children}
           <Button color="inherit">Login</Button>
         </Toolbar>
       </AppBar>
