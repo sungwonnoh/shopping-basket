@@ -1,5 +1,7 @@
-import { Grid, Paper, Container } from "@mui/material";
+import { Grid, Container } from "@mui/material";
 import ProductThumbnail from "../components/ProductThumbnail";
+import { cartItemsVar } from "../cache";
+import cuid from "cuid";
 
 const products = [...Array(10)].map(() => ({
   name: "고구마",
@@ -14,7 +16,22 @@ export default function Products() {
       <Grid container spacing={2} sx={{ justifyContent: "center" }}>
         {products.map(({ name, price, imgUrl }) => (
           <Grid item xs={6} md={4}>
-            <ProductThumbnail name={name} price={price} imgUrl={imgUrl} />
+            <ProductThumbnail
+              name={name}
+              price={price}
+              imgUrl={imgUrl}
+              onClick={() => {
+                const allCartItems = cartItemsVar();
+                cartItemsVar([
+                  ...allCartItems,
+                  {
+                    id: cuid(),
+                    product: { name, price, imgUrl, id: cuid() },
+                    amount: 1,
+                  },
+                ]);
+              }}
+            />
           </Grid>
         ))}
       </Grid>

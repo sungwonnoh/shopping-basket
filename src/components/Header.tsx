@@ -6,11 +6,16 @@ import Button from "@mui/material/Button";
 import IconButton from "@mui/material/IconButton";
 import MenuIcon from "@mui/icons-material/Menu";
 import React from "react";
+import { ShoppingCart } from "@mui/icons-material";
+import { Badge } from "@mui/material";
+import { useReactiveVar } from "@apollo/client";
+import { cartItemsVar } from "../cache";
 
 interface Props {
   children: React.ReactNode;
 }
 export default function Header({ children }: Props) {
+  const cartItems = useReactiveVar(cartItemsVar); //변경된 이벤트를 받아서 리렌더링
   return (
     <Box sx={{ flexGrow: 1 }}>
       <AppBar position="static">
@@ -28,6 +33,11 @@ export default function Header({ children }: Props) {
             News
           </Typography>
           {children}
+          <IconButton>
+            <Badge badgeContent={cartItems.length} color="secondary">
+              <ShoppingCart />
+            </Badge>
+          </IconButton>
           <Button color="inherit">Login</Button>
         </Toolbar>
       </AppBar>

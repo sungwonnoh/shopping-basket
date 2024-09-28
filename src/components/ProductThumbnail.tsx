@@ -31,15 +31,17 @@ interface Props {
   name: string;
   price: string;
   imgUrl: string;
+  onClick?: React.MouseEventHandler<HTMLDivElement>;
 }
 
 export const ProductThumbnail = React.memo(function ProductThumbnail({
   name,
   price,
   imgUrl,
+  onClick,
 }: Props) {
   return (
-    <Card sx={cardStyles}>
+    <Card sx={cardStyles} onClick={onClick}>
       <CardMedia sx={{ height: 140 }} image={imgUrl} />
       <Box py={3} px={2} sx={contentStyles}>
         <Typography variant="h6">{name}</Typography>
