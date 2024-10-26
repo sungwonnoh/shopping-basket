@@ -1,36 +1,49 @@
-import { Grid, Container } from "@mui/material";
+import {
+  Container,
+  createStyles,
+  Grid,
+  makeStyles,
+  Paper,
+} from "@material-ui/core";
 import ProductThumbnail from "../components/ProductThumbnail";
 import { cartItemsVar } from "../cache";
 import cuid from "cuid";
 
+const useStyles = makeStyles((theme) =>
+  createStyles({
+    root: {
+      paddingTop: theme.spacing(7),
+    },
+  })
+);
+
 const products = [...Array(10)].map(() => ({
+  id: "gogoo",
   name: "고구마",
   price: "1000",
   imgUrl:
-    "https://egnmall.kr/thumb/d593060f9bf1cef1b7c8c1e58464c59a/800_800_0d304a925fc5097919a9faf1db6a.jpg",
+    "https://mblogthumb-phinf.pstatic.net/MjAxNzA5MTFfOTUg/MDAxNTA1MDkwOTQ4Nzkx.d6WmUQbJNVn_AgreyvKeQVnSTLnlzHFJsi4lWdgsTr0g.2BA8M9s7-eZEwkJZ5SJ6uVYD4g3kCAXUuQYOZtw1Uusg.PNG.nong-up/image.png?type=w800",
 }));
-
 export default function Products() {
+  const classes = useStyles();
   return (
-    <Container sx={{ paddingTop: 7 }}>
-      <Grid container spacing={2} sx={{ justifyContent: "center" }}>
-        {products.map(({ name, price, imgUrl }) => (
+    <Container className={classes.root}>
+      <Grid container justify="center" spacing={2}>
+        {products.map((props) => (
           <Grid item xs={6} md={4}>
             <ProductThumbnail
-              name={name}
-              price={price}
-              imgUrl={imgUrl}
               onClick={() => {
                 const allCartItems = cartItemsVar();
                 cartItemsVar([
                   ...allCartItems,
                   {
                     id: cuid(),
-                    product: { name, price, imgUrl, id: cuid() },
+                    product: props,
                     amount: 1,
                   },
                 ]);
               }}
+              {...props}
             />
           </Grid>
         ))}

@@ -3,9 +3,11 @@ import "./App.css";
 import { green, purple } from "@mui/material/colors";
 import { ThemeProvider, createTheme } from "@mui/material/styles";
 import Header from "./components/Header";
-import { Paper, Switch, ThemeOptions } from "@mui/material";
+import { Container, Paper, Switch, ThemeOptions } from "@mui/material";
 import { styled } from "@mui/material/styles";
 import Products from "./pages/Products";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import DailyCart from "./pages/Cart";
 
 const useStyles = styled(Paper)(({ theme }) => ({
   height: "100vh",
@@ -45,15 +47,22 @@ function App() {
 
   return (
     <ThemeProvider theme={theme}>
-      <Header>
-        <Switch
-          checked={isDark}
-          onChange={handleChange}
-          name="checkedA"
-          inputProps={{ "aria-label": "secondary checkbox" }}
-        />
-      </Header>
-      <Products />
+      <Container>
+        <Router>
+          <Header>
+            <Switch
+              checked={isDark}
+              onChange={handleChange}
+              name="checkedA"
+              inputProps={{ "aria-label": "secondary checkbox" }}
+            />
+          </Header>
+          <Routes>
+            <Route path="/" element={<Products />} />
+            <Route path="/cart" element={<DailyCart />} />
+          </Routes>
+        </Router>
+      </Container>
     </ThemeProvider>
   );
 }

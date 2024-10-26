@@ -10,7 +10,7 @@ import { ShoppingCart } from "@mui/icons-material";
 import { Badge } from "@mui/material";
 import { useReactiveVar } from "@apollo/client";
 import { cartItemsVar } from "../cache";
-
+import { Link } from "react-router-dom";
 interface Props {
   children: React.ReactNode;
 }
@@ -33,11 +33,13 @@ export default function Header({ children }: Props) {
             News
           </Typography>
           {children}
-          <IconButton>
-            <Badge badgeContent={cartItems.length} color="secondary">
-              <ShoppingCart />
-            </Badge>
-          </IconButton>
+          <Link to="/cart">
+            <IconButton>
+              <Badge badgeContent={cartItems.length} color="secondary">
+                <ShoppingCart />
+              </Badge>
+            </IconButton>
+          </Link>
           <Button color="inherit">Login</Button>
         </Toolbar>
       </AppBar>
